@@ -1,0 +1,47 @@
+# External tool builders
+.externalToolBuilders/
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+### .gitignore-boilerplates/Global/OSX.gitignore
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+### .gitignore-boilerplates/Java.gitignore
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Maven
+log/
+target/
+/.apt_generated/
+.mvn/
+mvnw
+mvnw.cmd
+
+#EdgeX logging
+logs/
+/bin/
+*.log
