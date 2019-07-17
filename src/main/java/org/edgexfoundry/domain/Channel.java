@@ -1,10 +1,12 @@
-package org.edgexfoundry.domain.notification;
+package org.edgexfoundry.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
+import java.util.Iterator;
 
 @JsonTypeInfo(
         use = Id.NAME,
@@ -30,4 +32,5 @@ public abstract class Channel {
     public void setType(ChannelType type) {
         this.type = type;
     }
+
 }

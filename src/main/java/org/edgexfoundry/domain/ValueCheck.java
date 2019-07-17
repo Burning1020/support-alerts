@@ -1,4 +1,4 @@
-package org.edgexfoundry.domain.rule;
+package org.edgexfoundry.domain;
 
 public class ValueCheck {
 

@@ -1,4 +1,5 @@
-package org.edgexfoundry.domain.notification;
+package org.edgexfoundry.domain;
+
 
 import java.util.Arrays;
 
@@ -20,4 +21,5 @@ public class EmailChannel extends Channel {
     public String toString() {
         return "EmailChannel [mailAddresses=" + Arrays.toString(this.mailAddresses) + "]";
     }
+
 }

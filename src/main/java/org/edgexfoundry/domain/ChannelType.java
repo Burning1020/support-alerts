@@ -1,4 +1,4 @@
-package org.edgexfoundry.domain.notification;
+package org.edgexfoundry.domain;
 
 public enum ChannelType {
     REST,

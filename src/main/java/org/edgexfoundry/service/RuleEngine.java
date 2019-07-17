@@ -1,17 +1,21 @@
 package org.edgexfoundry.service;
 
+import org.edgexfoundry.domain.Rule;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.List;
 
 public interface RuleEngine {
 
-    public void init();
+    void init();
 
-    public void execute(Object object);
+    void execute(Object object);
 
-    public void addRule(String newRule, String rulename);
+    List<String> getRuleNames();
 
-    public boolean removeRule(String rulename);
+    void addDroolRule(String newRule);
 
-    public List<String> getRulenames();
+    void removeDroolRule(String rulename);
 
 }

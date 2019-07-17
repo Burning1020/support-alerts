@@ -1,27 +1,8 @@
-/*******************************************************************************
- * Copyright 2016-2017 Dell Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- *
- * @microservice: support-notifications
- * @author: Cloud Tsai, Dell
- * @version: 1.0.0
- *******************************************************************************/
-
 package org.edgexfoundry.service.impl;
 
 import org.edgexfoundry.config.MailChannelProperties;
-import org.edgexfoundry.domain.notification.Channel;
-import org.edgexfoundry.domain.notification.EmailChannel;
-import org.edgexfoundry.domain.rule.Destination;
+import org.edgexfoundry.domain.Channel;
+import org.edgexfoundry.domain.EmailChannel;
 import org.edgexfoundry.exception.controller.DataValidationException;
 import org.edgexfoundry.service.SendingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +26,11 @@ public class EMAILSendingService implements SendingService {
     private JavaMailSender mailSender;
 
     @Override
-    public void send(Destination destination, Channel channel) {
+    public void send(String content, Channel channel) {
         checkChannel(channel);
 
-        logger.info("EMAILSendingService is starting sending notification: receiver="
-                + destination.getReceiver() + " to channel: " + channel.toString());
+        logger.info("EMAILSendingService is starting sending "
+                + content + " to channel: " + channel.toString());
 
         EmailChannel emailChannel = (EmailChannel) channel;
 
@@ -57,10 +38,10 @@ public class EMAILSendingService implements SendingService {
         msg.setFrom(mailChannelProps.getSender());
         msg.setSubject(mailChannelProps.getSubject());
         msg.setTo(emailChannel.getMailAddresses());
-        msg.setText(destination.getContent());
+        msg.setText(content);
 
         logger.debug("sending mailConfig to " + Arrays.toString(emailChannel.getMailAddresses()));
-        logger.debug("mailConfig content is: " + destination.getContent());
+        logger.debug("mailConfig content is: " + content);
 
         try {
             mailSender.send(msg);

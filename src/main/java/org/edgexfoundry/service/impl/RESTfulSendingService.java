@@ -1,26 +1,7 @@
-/*******************************************************************************
- * Copyright 2016-2017 Dell Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- *
- * @microservice: support-notifications
- * @author: Cloud Tsai, Dell
- * @version: 1.0.0
- *******************************************************************************/
-
 package org.edgexfoundry.service.impl;
 
-import org.edgexfoundry.domain.notification.Channel;
-import org.edgexfoundry.domain.notification.RESTfulChannel;
-import org.edgexfoundry.domain.rule.Destination;
+import org.edgexfoundry.domain.Channel;
+import org.edgexfoundry.domain.RESTfulChannel;
 import org.edgexfoundry.exception.controller.DataValidationException;
 import org.edgexfoundry.service.SendingService;
 import org.springframework.http.*;
@@ -37,16 +18,20 @@ public class RESTfulSendingService implements SendingService {
             org.edgexfoundry.support.logging.client.EdgeXLoggerFactory.getEdgeXLogger(this.getClass());
 
     @Override
-    public void send(Destination destination, Channel channel) {
+    public void send(String content, Channel channel) {
         checkChannel(channel);
+
+        logger.info("RESTfulSendingService is starting sending "
+                + content + " to channel: " + channel.toString());
+
 
         RESTfulChannel restfulChannel = (RESTfulChannel) channel;
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(destination.getContentType() == null ? MediaType.TEXT_PLAIN
-                : MediaType.parseMediaType(destination.getContentType()));
-        HttpEntity<String> request = new HttpEntity<>(destination.getContent(), headers);
+        headers.setContentType(restfulChannel.getContentType() == null ? MediaType.TEXT_PLAIN
+                : MediaType.parseMediaType(restfulChannel.getContentType()));
+        HttpEntity<String> request = new HttpEntity<>(content, headers);
 
         logger.debug("sending notification to " + restfulChannel.getUrl() + " by HTTP "
                 + restfulChannel.getHttpMethod() + " method");

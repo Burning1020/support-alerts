@@ -18,11 +18,11 @@
 
 package org.edgexfoundry.dao;
 
-import org.edgexfoundry.domain.notification.Subscription;
+import org.edgexfoundry.domain.Rule;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface SubscriptionDAO extends MongoRepository<Subscription, String> {
+public interface RuleDAO extends MongoRepository<Rule, String> {
 
-    public Subscription findByReceiverIgnoreCase(String receiver);
+    public Rule findByNameIgnoreCase(String name);
 
 }

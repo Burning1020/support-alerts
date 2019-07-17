@@ -1,7 +1,14 @@
-package org.edgexfoundry.domain.rule;
+package org.edgexfoundry.domain;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(
+        collection = "rule"
+)
 public class Rule {
-
+    @Id
+    private String id;
     private String name;
     private Condition condition;
     private Destination destination;
@@ -13,6 +20,14 @@ public class Rule {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Condition getCondition() {
@@ -39,4 +54,14 @@ public class Rule {
         this.log = log;
     }
 
+    @Override
+    public String toString() {
+        return "Rule{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", condition=" + condition +
+                ", destination=" + destination +
+                ", log='" + log + '\'' +
+                '}';
+    }
 }

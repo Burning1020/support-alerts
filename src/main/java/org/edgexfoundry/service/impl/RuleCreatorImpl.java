@@ -9,7 +9,8 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
-import org.edgexfoundry.domain.rule.Rule;
+import com.alibaba.fastjson.JSON;
+import org.edgexfoundry.domain.*;
 import org.edgexfoundry.exception.controller.ServiceException;
 import org.edgexfoundry.service.RuleCreator;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,9 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 import org.springframework.stereotype.Service;
+
+import static com.alibaba.fastjson.serializer.SerializerFeature.UseSingleQuotes;
+import static com.alibaba.fastjson.serializer.SerializerFeature.WriteClassName;
 
 @Service("ruleCreator")
 public class RuleCreatorImpl implements RuleCreator {
@@ -56,9 +60,20 @@ public class RuleCreatorImpl implements RuleCreator {
         map.put("ruleName", rule.getName());
         map.put("condDevice", rule.getCondition().getDevice());
         map.put("valueChecks", rule.getCondition().getChecks());
-        map.put("receiver", rule.getDestination().getReceiver());
-        map.put("contentType", rule.getDestination().getContentType());
-        map.put("content", rule.getDestination().getContent());
+        String destination = JSON.toJSONString(rule.getDestination(), UseSingleQuotes, WriteClassName);
+        map.put("destination", destination);
+//        Channel channel = rule.getDestination().getChannel();
+//        if (channel.getType() == ChannelType.EMAIL) {
+//            EmailChannel emailChannel = (EmailChannel) channel;
+//            map.put("type", "EMAIL");
+//            map.put("mailAddress", emailChannel.getMailAddress());
+//        } else if (channel.getType() == ChannelType.REST) {
+//            RESTfulChannel resTfulChannel = (RESTfulChannel) channel;
+//            map.put("type", "REST");
+//            map.put("url", resTfulChannel.getUrl());
+//            map.put("httpMethod", resTfulChannel.getHttpMethod());
+//            map.put("contentType", resTfulChannel.getContentType());
+//        }
         map.put("log", rule.getLog());
         return map;
     }
@@ -81,5 +96,4 @@ public class RuleCreatorImpl implements RuleCreator {
             throw e;
         }
     }
-
 }

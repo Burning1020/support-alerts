@@ -1,4 +1,4 @@
-package org.edgexfoundry.domain.rule;
+package org.edgexfoundry.domain;
 
 import java.util.ArrayList;
 import java.util.List;

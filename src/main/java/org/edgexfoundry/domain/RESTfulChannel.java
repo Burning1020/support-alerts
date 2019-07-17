@@ -1,9 +1,10 @@
-package org.edgexfoundry.domain.notification;
+package org.edgexfoundry.domain;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 
 public class RESTfulChannel extends Channel {
     private String url;
+    private String contentType;
     private RequestMethod httpMethod;
 
     public RESTfulChannel() {
@@ -14,6 +15,14 @@ public class RESTfulChannel extends Channel {
     public RESTfulChannel(String url) {
         this();
         this.url = url;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 
     public RESTfulChannel(String url, RequestMethod httpMethod) {
@@ -42,5 +51,14 @@ public class RESTfulChannel extends Channel {
 
     public void setHttpMethod(RequestMethod httpMethod) {
         this.httpMethod = httpMethod;
+    }
+
+    @Override
+    public String toString() {
+        return "RESTfulChannel{" +
+                "url='" + url + '\'' +
+                ", contentType='" + contentType + '\'' +
+                ", httpMethod=" + httpMethod +
+                '}';
     }
 }

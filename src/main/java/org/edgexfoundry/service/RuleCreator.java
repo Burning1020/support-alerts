@@ -1,6 +1,6 @@
 package org.edgexfoundry.service;
 
-import org.edgexfoundry.domain.rule.Rule;
+import org.edgexfoundry.domain.Rule;
 
 public interface RuleCreator {
 

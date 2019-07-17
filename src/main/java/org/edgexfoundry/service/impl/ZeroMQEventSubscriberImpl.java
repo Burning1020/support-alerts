@@ -8,6 +8,7 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 
 import org.edgexfoundry.domain.core.Event;
+//import org.edgexfoundry.service.RuleEngine;
 import org.edgexfoundry.service.RuleEngine;
 import org.edgexfoundry.service.ZeroMQEventSubscriber;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class ZeroMQEventSubscriberImpl implements ZeroMQEventSubscriber {
                 exportBytes = subscriber.recv();
                 event = toEvent(exportBytes);
                 engine.execute(event);
-                logger.info("Event sent to rules engine for device id:  " + event.getDevice());
+                logger.info("Event sent to rules engine for device" + event.getDevice());
             }
         } catch (Exception e) {
             logger.error("Unable to receive messages via ZMQ: " + e.getMessage());
